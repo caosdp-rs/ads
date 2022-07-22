@@ -30,4 +30,12 @@ class CategoriesController extends BaseController
         }
         return $this->response->setJSON(['data' => $this->categoryService->getAllCategories()]);
     }
+    public function getCategoryInfo()
+    {
+        if (!$this->request->isAjax()) {
+            return redirect()->back();
+        }
+        exit($this->request->getGet('id'));
+        //return $this->response->setJSON(['data' => $this->categoryService->getAllCategories()]);
+    }
 }
