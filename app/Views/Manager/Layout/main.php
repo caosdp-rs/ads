@@ -20,8 +20,8 @@
             <div class="border-end bg-white" id="sidebar-wrapper">
                 <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
                 <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Shortcuts</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="<?php echo route_to('manager');?>">Dashboard</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="<?php echo route_to('categories');?>">Categorias</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
@@ -58,10 +58,12 @@
                 
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="<?php echo site_url('manager_assets/js/scripts.js')?>"></script>
+        
         <?php echo $this->renderSection('scripts')?>
     </body>
 </html>
