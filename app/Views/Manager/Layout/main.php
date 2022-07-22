@@ -11,7 +11,7 @@
         <link rel="icon" type="image/x-icon" href="<?php echo site_url('manager_assets/assets/favicon.ico')?>" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="<?php echo site_url('manager_assets/css/styles.css')?>" rel="stylesheet" />
-        <?php echo $this->renderSection('style')?>
+        <?php echo $this->renderSection('styles')?>
     </head>
     <body>
 

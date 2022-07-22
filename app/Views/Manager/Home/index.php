@@ -3,7 +3,7 @@
 <?php echo $title ?? ''; ?>
 <?= $this->endSection() ?>
 
-<?= $this->section('style') ?>
+<?= $this->section('styles') ?>
 <!-- Style da view -->
 <?= $this->endSection() ?>
 
