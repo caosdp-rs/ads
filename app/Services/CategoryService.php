@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Services;
 
+use App\Models\CategoryModel;
 use CodeIgniter\Config\Factories;
 
 class CategoryService

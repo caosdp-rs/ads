@@ -52,7 +52,7 @@
                     data: 'slug'
                 },
                 {
-                    data: 'action'
+                    data: 'actions'
                 },
             ],
         });

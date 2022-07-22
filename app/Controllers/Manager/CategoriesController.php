@@ -3,7 +3,9 @@
 namespace App\Controllers\Manager;
 
 use App\Controllers\BaseController;
+use App\Services\CategoryService;
 use CodeIgniter\Config\Factories;
+
 
 class CategoriesController extends BaseController
 {
