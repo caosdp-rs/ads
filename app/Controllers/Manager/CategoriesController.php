@@ -35,7 +35,19 @@ class CategoriesController extends BaseController
         if (!$this->request->isAjax()) {
             return redirect()->back();
         }
-        exit($this->request->getGet('id'));
-        //return $this->response->setJSON(['data' => $this->categoryService->getAllCategories()]);
+        $category = $this->categoryService->getCategory($this->request->getGet('id'));
+        
+        $option =[
+            'class' =>'form-control',
+            'placeholder'=>'Escolha...',
+            'selected' => !(empty($category->parent_id)) ? $category->parent_id:"",
+        ];
+        $response = [
+            'category'=>$category,
+            'parents' => $this-> categoryService->getMultinivel('parent_id',$option),
+        ];
+        return $this->response->setJSON($response);
     }
+
+
 }
