@@ -83,4 +83,10 @@
 <?php echo $this->include('Manager/Categories/Scripts/_get_category_info');?>
 <?php echo $this->include('Manager/Categories/Scripts/_submit_modal_create_update');?>
 
+<script>
+  function refreshCSRFToken(token){
+    $('[name="<?php echo csrf_token()?>"]').val(token);
+    $('meta[name="<?php echo csrf_token()?>"]').attr('content',token);
+  }
+</script>
 <?= $this->endSection() ?>

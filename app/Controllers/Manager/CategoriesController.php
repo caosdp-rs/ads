@@ -51,10 +51,11 @@ class CategoriesController extends BaseController
 
     public function update()
     {
-        //$category = $this->categoryService->getCategory($this->request->getGetPost('id'));
-        echo '<pre>';
-        print_r('$category');
-        exit;
+        $category = $this->categoryService->getCategory($this->request->getGetPost('id'));
+        $category->fill($this->removeSpoofingFromRequest());
+        $this->categoryService->trySaveCategory($category);
+        return $this->response->setJSON(['success'=> true,'token'=>csrf_hash()]);
+        
     }
 
 }

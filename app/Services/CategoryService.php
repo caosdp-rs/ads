@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Entities\Category;
 use App\Models\CategoryModel;
 use CodeIgniter\Config\Factories;
 
@@ -129,6 +130,20 @@ class CategoryService
         }
         $i--;
         return $menu_html;
+    }
+
+    public function trySaveCategory(Category $category, bool $protect = true)
+    {
+        try {
+            if($category->hasChanged()){
+                $this->categoryModel->protect($protect)->save($category);
+            }
+
+        } catch (\Exception $e) {
+
+            die($e->getMessage());
+
+        }
     }
 
 }
