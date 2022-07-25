@@ -8,7 +8,8 @@
             method: $(form).attr('method'),
             data: new FormData(form),
             processData: false,
-            dataType: false,
+            dataType: 'JSON',
+            contentType: false,
             beforeSend: function(){
                 $(form).find('span.error-text').text('');
             },

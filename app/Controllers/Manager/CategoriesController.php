@@ -25,7 +25,7 @@ class CategoriesController extends BaseController
 
     public function getAllCategories()
     {
-        if (!$this->request->isAjax()) {
+        if (!$this->request->isAjax()) { 
             return redirect()->back();
         }
         return $this->response->setJSON(['data' => $this->categoryService->getAllCategories()]);
@@ -40,11 +40,11 @@ class CategoriesController extends BaseController
         $option =[
             'class' =>'form-control',
             'placeholder'=>'Escolha...',
-            'selected' => !(empty($category->parent_id)) ? $category->parent_id:"",
+            'selected' => !(empty($category->parent_id)) ? $category->parent_id : "",
         ];
         $response = [
             'category'=>$category,
-            'parents' => $this-> categoryService->getMultinivel('parent_id',$option),
+            'parents' => $this->categoryService->getMultinivel('parent_id',$option),
         ];
         return $this->response->setJSON($response);
     }
