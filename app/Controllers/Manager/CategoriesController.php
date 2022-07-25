@@ -35,8 +35,8 @@ class CategoriesController extends BaseController
         if (!$this->request->isAjax()) {
             return redirect()->back();
         }
-        $category = $this->categoryService->getCategory($this->request->getGet('id'));
-        
+        $category = $this->categoryService->getCategory($this->request->getGetPost('id'));
+
         $option =[
             'class' =>'form-control',
             'placeholder'=>'Escolha...',
@@ -49,5 +49,12 @@ class CategoriesController extends BaseController
         return $this->response->setJSON($response);
     }
 
+    public function update()
+    {
+        //$category = $this->categoryService->getCategory($this->request->getGetPost('id'));
+        echo '<pre>';
+        print_r('$category');
+        exit;
+    }
 
 }
