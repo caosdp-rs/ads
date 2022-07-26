@@ -24,5 +24,9 @@
 
 <?= $this->section('scripts') ?>
 <!-- Scripts da view -->
+<script>
+    toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!')
+</script>
+
 <?= $this->endSection() ?>
 

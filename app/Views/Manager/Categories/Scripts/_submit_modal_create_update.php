@@ -16,9 +16,16 @@
             success:function(response){
                 window.refreshCSRFToken(response.token);
                 if(response.success == false){
-                    alert('erro de validação');
+                    //Erro
+                    toastr.error(response.message,"Erro");
+                    $.each(response.errors, function(field,value){
+                        console.log(field);
+                        $(form).find('span.' + field).text(value);
+                    });
                     return;
                 }
+                // Tudo certo
+                toastr.success(response.message,"Sucesso");
                 $('#categoryModal').modal('hide');
                 $(form)[0].reset();
                 $("#dataTable").DataTable().ajax.reload(null, false);
