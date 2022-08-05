@@ -3,6 +3,7 @@
 namespace App\Controllers\Manager;
 
 use App\Controllers\BaseController;
+use App\Entities\Category;
 use App\Requests\CategoryRequest;
 use App\Services\CategoryService;
 use CodeIgniter\Config\Factories;
@@ -46,10 +47,22 @@ class CategoriesController extends BaseController
         ];
         $response = [
             'category'=>$category,
-            'parents' => $this->categoryService->getMultinivel('parent_id',$option),
+            'parents' => $this->categoryService->getMultinivel('parent_id',$option,$category->id),
         ];
         return $this->response->setJSON($response);
     }
+
+    public function create()
+    {
+
+        $this->categoryRequest->validateBeforeSave('category');
+
+        $category = new Category($this->removeSpoofingFromRequest());
+        $this->categoryService->trySaveCategory($category);
+        return $this->response->setJSON($this->categoryRequest->responseWithMessage(message: 'Dados salvos com sucesso!'));
+        
+    }
+
 
     public function update()
     {
@@ -61,6 +74,24 @@ class CategoriesController extends BaseController
         $this->categoryService->trySaveCategory($category);
         return $this->response->setJSON($this->categoryRequest->responseWithMessage(message: 'Dados salvos com sucesso!'));
         
+    }
+
+    public function getDropdownParents()
+    {
+        if (!$this->request->isAjax()) {
+            return redirect()->back();
+        }
+        $option =[
+            'class' =>'form-control',
+            'placeholder'=>'Escolha...',
+            'selected' => "",
+        ];
+        $response = [
+            'parents' => $this->categoryService->getMultinivel('parent_id',$option),
+        ];
+        
+        return $this->response->setJSON($response);
+
     }
 
 }

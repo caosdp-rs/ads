@@ -83,12 +83,15 @@
 <?php echo $this->include('Manager/Categories/Scripts/_datatable_all');?>
 <?php echo $this->include('Manager/Categories/Scripts/_get_category_info');?>
 <?php echo $this->include('Manager/Categories/Scripts/_submit_modal_create_update');?>
-<?php echo $this->include('Manager/Categories/Scripts/_modal_create');?>
+<?php echo $this->include('Manager/Categories/Scripts/_show_modal_to_create');?>
 
 <script>
   function refreshCSRFToken(token){
     $('[name="<?php echo csrf_token()?>"]').val(token);
     $('meta[name="<?php echo csrf_token()?>"]').attr('content',token);
   }
+  $('#categoryModal').on('hidden.bs.modal',function(e){
+    $('input[name="_method"]').remove();
+  });
 </script>
 <?= $this->endSection() ?>
