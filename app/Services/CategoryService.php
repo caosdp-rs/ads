@@ -13,6 +13,7 @@ class CategoryService
     {
         $this->categoryModel = Factories::models(CategoryModel::class);
     }
+
     /**
      * Recupera a categoria de acordo com o ID
      *
@@ -29,6 +30,7 @@ class CategoryService
         }
         return $category;
     }
+
     public function getAllCategories(): array
     {
         $categories = $this->categoryModel->asObject()->orderBy('id', 'DESC')->findAll();
@@ -57,6 +59,38 @@ class CategoryService
                 'name' => $category->name,
                 'slug' => $category->slug,
                 'actions' => $btnEdit . ' ' . $btnArchive,
+            ];
+        }
+        return $data;
+    }
+
+    public function getAllArchivedCategories(): array
+    {
+        $categories = $this->categoryModel->onlyDeleted()->asObject()->orderBy('id', 'DESC')->findAll();
+        $data = [];
+
+        foreach ($categories as $category) {
+            $btnRecover = form_button(
+                [
+                    'data-id' => $category->id,
+                    'id' => 'recoverCategoryBtn', // ID do html element
+                    'class' => 'btn btn-primary btn-sm'
+                ],
+                'Recuperar'
+            );
+            $btnDelete = form_button(
+                [
+                    'data-id' => $category->id,
+                    'id' => 'deleteCategoryBtn', // ID do html element
+                    'class' => 'btn btn-danger btn-sm'
+                ],
+                'Excluir'
+            );
+            $data[] = [
+                'id' => $category->id,
+                'name' => $category->name,
+                'slug' => $category->slug,
+                'actions' => $btnRecover . ' ' . $btnDelete,
             ];
         }
         return $data;
@@ -139,6 +173,45 @@ class CategoryService
                 $this->categoryModel->protect($protect)->save($category);
             }
 
+        } catch (\Exception $e) {
+
+            die($e->getMessage());
+
+        }
+    }
+
+    public function tryArchiveCategory(int $id)
+    {
+        try {
+            $category = $this->getCategory($id);
+            $this->categoryModel->delete($category->id);
+            
+        } catch (\Exception $e) {
+
+            die($e->getMessage());
+
+        }
+    }
+    public function tryDeleteCategory(int $id)
+    {
+        try {
+            $category = $this->getCategory($id, withDeleted:true);
+            $this->categoryModel->delete($category->id,purge:true);
+            
+        } catch (\Exception $e) {
+
+            die($e->getMessage());
+
+        }
+    }
+
+    public function tryRecoverCategory(int $id)
+    {
+        try {
+            $category = $this->getCategory($id, withDeleted:true);
+            $category->recover();
+            $this->trySaveCategory($category, protect:false);
+            
         } catch (\Exception $e) {
 
             die($e->getMessage());

@@ -25,6 +25,13 @@ class CategoriesController extends BaseController
         ];
         return view('Manager/Categories/index', $data);
     }
+    public function archived()
+    {
+        $data = [
+            'title' => 'Categorias Arquivadas',
+        ];
+        return view('Manager/Categories/archived', $data);
+    }
 
     public function getAllCategories()
     {
@@ -32,6 +39,13 @@ class CategoriesController extends BaseController
             return redirect()->back();
         }
         return $this->response->setJSON(['data' => $this->categoryService->getAllCategories()]);
+    }
+    public function getAllArchivedCategories()
+    {
+        if (!$this->request->isAjax()) { 
+            return redirect()->back();
+        }
+        return $this->response->setJSON(['data' => $this->categoryService->getAllArchivedCategories()]);
     }
     public function getCategoryInfo()
     {
@@ -76,6 +90,15 @@ class CategoriesController extends BaseController
         
     }
 
+    public function archive()
+    {
+
+        $this->categoryService->tryArchiveCategory($this->request->getGetPost('id'));
+
+        return $this->response->setJSON($this->categoryRequest->responseWithMessage(message: 'Categoria arquivada com sucesso!'));
+        
+    }
+
     public function getDropdownParents()
     {
         if (!$this->request->isAjax()) {
@@ -92,6 +115,22 @@ class CategoriesController extends BaseController
         
         return $this->response->setJSON($response);
 
+    }
+    public function recover()
+    {
+
+        $this->categoryService->tryRecoverCategory($this->request->getGetPost('id'));
+
+        return $this->response->setJSON($this->categoryRequest->responseWithMessage(message: 'Categoria recuperada com sucesso!'));
+        
+    }
+    public function delete()
+    {
+
+        $this->categoryService->tryDeleteCategory($this->request->getGetPost('id'));
+
+        return $this->response->setJSON($this->categoryRequest->responseWithMessage(message: 'Categoria excluída com sucesso!'));
+        
     }
 
 }

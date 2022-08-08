@@ -13,6 +13,15 @@
         <link href="<?php echo site_url('manager_assets/css/styles.css')?>" rel="stylesheet" />
         <link href="<?php echo site_url('manager_assets/toast/toastr.min.css')?>" rel="stylesheet" />
         <?php echo $this->renderSection('styles')?>
+        <style>
+            /**
+            * Quando Clicar no menu da sidebar, ajustar o layout da tabela
+            */
+            .dataTables_scrollHeadInner,
+            .table{
+                width: 100% !important
+            }
+        </style>
     </head>
     <body>
 
