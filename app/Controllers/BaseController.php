@@ -28,6 +28,9 @@ abstract class BaseController extends Controller
      */
     protected $request;
 
+    protected $locale;
+
+
     /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available
@@ -46,7 +49,7 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
-
+        $this->setUpLanguageOptions($request);
         // E.g.: $this->session = \Config\Services::session();
     }
 
@@ -60,5 +63,28 @@ abstract class BaseController extends Controller
         unset($data['id']);
         unset($data['_method']);
         return $data;
+    }
+
+    private function setUpLanguageOptions($request)
+    {
+        $this->locale = $request->getLocale();
+        $view = service('renderer');
+        $view->setVar('locale',$this->locale);
+        $urls = [
+            'url_en' =>site_url($request->uri->setSegment(1,'en')),
+            'url_es' =>site_url($request->uri->setSegment(1,'es')),
+            'url_pt_br' =>site_url($request->uri->setSegment(1,'pt-BR')),
+        ];
+        $request->uri->setSegment(1,$this->locale);
+        $view->setVar('urls',(object) $urls);
+
+        helper('html');
+        $language = match($this->locale){
+            'en'    => img('language/ingles.png',attributes:'class="rounded-circle" width="24"'). ' English',
+            'es'    => img('language/espanhol.png',attributes:'class="rounded-circle" width="24"'). ' Españhol',
+            default => img('language/brasil.png',attributes:'class="rounded-circle" width="24"'). ' Português-BR',
+            
+        };
+        $view->setVar('language',$language);
     }
 }
