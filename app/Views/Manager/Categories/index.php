@@ -17,10 +17,10 @@
             <div class="card shadow-lg">
                 <div class="card-header">
                     <h5><<?php echo lang('Categories.title_index'); ?></h5>
-                    <button id="createCategoryBtn" class="btn btn-success btn-sm float-end"><?php echo lang('Categories.title_new'); ?></button>
+                    <button id="createCategoryBtn" class="btn btn-success btn-sm float-end"><?php echo lang('App.btn_new'); ?></button>
                 </div>
                 <div class="card-body">
-                  <a class="btn btn-info btn-sm mt-2 mb-4" href="<?php echo route_to('categories.archived');?>"><?php echo lang('Categories.label_archived_categories'); ?></a>
+                  <a class="btn btn-info btn-sm mt-2 mb-4" href="<?php echo route_to('categories.archived');?>"><?php echo lang('App.btn_all_archived'); ?></a>
                     <table class="table table-borderless table-striped" id="dataTable">
                         <thead>
                             <tr>
