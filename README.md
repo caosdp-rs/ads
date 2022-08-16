@@ -1,3 +1,9 @@
+# Nova área/CRUD
+php spark make:migration create_table_plans
+php spark make:model PlanModel
+php spark make:entity Plan
+php spark make:controller Manager/PlansController
+
 # CodeIgniter 4 Application Starter
 
 ## What is CodeIgniter?
