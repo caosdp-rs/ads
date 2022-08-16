@@ -37,7 +37,7 @@ class CategoryModel extends MyBaseModel
         return $data;
     }
 
-    public function getParentCategories(int $exceptCategoryD): array
+    public function getParentCategories(int $exceptCategoryD = null): array
     {
         $builder = $this;
         if ($exceptCategoryD){
