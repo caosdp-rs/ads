@@ -3,11 +3,18 @@
 namespace App\Controllers\Manager;
 
 use App\Controllers\BaseController;
+use App\Services\PlanService;
+use CodeIgniter\Config\Factories;
 
 class PlansController extends BaseController
 {
+    private $planService;
+    public function __construct()
+    {
+        $this->planService = Factories::class(PlanService::class);
+    }
     public function index()
     {
-        //
+        return view('Manager/Plans/index');
     }
 }
