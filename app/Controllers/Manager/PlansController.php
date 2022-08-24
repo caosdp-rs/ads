@@ -17,4 +17,11 @@ class PlansController extends BaseController
     {
         return view('Manager/Plans/index');
     }
+    public function getAllPlans()
+    {
+        if (!$this->request->isAjax()) { 
+            return redirect()->back();
+        }
+        return $this->response->setJSON(['data' => $this->planService->getAllPlans()]);
+    }
 }
