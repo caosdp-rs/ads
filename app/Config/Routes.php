@@ -36,6 +36,8 @@ $routes->setAutoRoute(false);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('/relogio', 'Home::relogio');
+$routes->get('/cronometro', 'Home::cronometro');
 
 // Rotas para o manager
 if (file_exists($manager = ROOTPATH . 'routes/manager.php')) {
