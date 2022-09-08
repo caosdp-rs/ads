@@ -11,33 +11,54 @@
 
 <body>
     <div class="wrapper">
-
+        <div class="display">
+            <div id="timeRelogio">
+            </div>
+        </div>
+    </div>
+    <div class="wrapper">
         <div class="display">
             <div id="time">
-                
-
             </div>
-
-
-                <input class="boton" type="button" id="start" value=" &#9658;" onclick="start();">
-                <input class="boton" type="button" id="pause" value=" &#8718;" onclick="pause();">
-                <input class="boton" type="button" id="reset" value=" &#8635;" onclick="reset();">
-
         </div>
         <span></span>
         <span></span>
 
     </div>
+    <div id="botoes">
+        <input class="boton" type="button" id="start" value="&#9658;" onclick="start();">
+        <input class="boton" type="button" id="pause" value="&#8718;" onclick="pause();">
+        <input class="boton" type="button" id="reset" value="&#8635;" onclick="reset();">
+    </div>
+
     <script>
+         setInterval(() => {
+            const timeRelogio = document.querySelector(".display #timeRelogio");
+            let date = new Date();
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            let seconds = date.getSeconds();
+            let day_night = "AM";
+            if (hours > 12) {
+                day_night = "PM";
+                hours = hours - 12;
+            }
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            if (hours < 10) {
+                hours = "0" + hours;
+            }
+            timeRelogio.textContent = hours + ":" + minutes + ":" + seconds + " " + day_night;
+        });
         let hour = 0;
         let minute = 0;
         let second = 0;
         let millisecond = 0;
         let cron;
-        document.form_main.start.onclick = () => start();
-        document.form_main.pause.onclick = () => pause();
-        document.form_main.reset.onclick = () => reset();
-
         function start() {
             pause();
             cron = setInterval(() => {
@@ -50,7 +71,7 @@
         }
 
         function reset() {
-
+            const time = document.querySelector(".display #time");
             hour = 0;
             minute = 0;
             second = 0;
@@ -59,8 +80,10 @@
             document.getElementById('minute').innerText = '00';
             document.getElementById('second').innerText = '00';
             document.getElementById('millisecond').innerText = '000';
+            time.textContent = returnData('00') + ":" + returnData('00') + ":" + returnData('00');
+            start();
         }
-
+       
         function timer() {
             const time = document.querySelector(".display #time");
             if ((millisecond += 10) == 1000) {
@@ -76,10 +99,12 @@
                 hour++;
             }
             time.textContent = returnData(hour) + ":" + returnData(minute) + ":" + returnData(second);
+
+            
         }
 
         function returnData(input) {
-            return input >9 ? input : `0${input}`
+            return input > 9 ? input : `0${input}`
         }
     </script>
 
