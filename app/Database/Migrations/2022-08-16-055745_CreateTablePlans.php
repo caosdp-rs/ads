@@ -30,7 +30,7 @@ class CreateTablePlans extends Migration
             ],
             'adverts' => [ //identifica o numero de anúncios caso seja nulo o anunciante pode ter anúncios ilimitados
                 'type' => 'INT',
-                'constraint' => 11,
+                'constraint' => 11, // Aceita valor nulo
                 'null' => true,
             ],
             'description' => [

@@ -9,14 +9,19 @@ class Plan extends Entity
 
     private const INTERVAL_MONTHLY = 1; // MENSAL
     private const INTERVAL_QUARTERLY = 3; // TRIMESTRE
-    private const INTERVAL_SEMESTER = 6; //
-    private const INTERVAL_YEARLY = 12;
+    private const INTERVAL_SEMESTER = 6; // SEMESTRAL
+    private const INTERVAL_YEARLY = 12; // ANUAL
+    
+    public const OPTION_MONTHLY = 'monthly'; // MENSAL
+    public const OPTION_QUARTERLY = 'quarterly'; // TRIMESTRE
+    public const OPTION_SEMESTER = 'semester'; // SEMESTRAL
+    public const OPTION_YEARLY = 'yearly'; // ANUAL
 
     protected $datamap = [];
     protected $dates   = ['created_at', 'updated_at', 'deleted_at'];
     protected $casts   = [
         'plan_id' => 'integer',
-        'isHighlighted' => '?integer', // pode ou não estar null
+        'adverts' => '?integer', // pode ou não estar null
         'is_highlighted' => 'boolean'
     ];
 
@@ -27,7 +32,7 @@ class Plan extends Entity
     }
     public function setAdverts(string $adverts)
     {
-        $this->attributes['adverts'] = $adverts ? (int) $adverts : null;
+        $this->attributes['adverts'] = $adverts ? (int) $adverts : null;  // Aqui quando ele não é nulo faz um cast de string para integer
         return $this;
     }
     public function setIsHighlighted(string $isHighlighted)
@@ -38,7 +43,7 @@ class Plan extends Entity
 
     public function setIntervalRepeats()
     {
-        // GerenciaNet envia a cobrança para o anunciante  até que o plano seja cancelado
+        // A GerenciaNet envia a cobrança para o anunciante  até que o plano seja cancelado
         $this->repeats = null;
 
         $this->attributes['interval'] = match ($this->attributes['recorrence']) {
@@ -48,6 +53,8 @@ class Plan extends Entity
             'yearly' => self::INTERVAL_YEARLY,
             default => throw new \InvalidArgumentException("Unsupported {$this->attributes['recorrence']}")
         };
+
+        return $this;
     }
 
     public function recover()
@@ -68,7 +75,8 @@ class Plan extends Entity
     public function details()
     {
         /**
-         * @todo alterar para exibir 
+         * @todo alterar para exibir conforme ao idioma e não a moeda
+         * utilizar o helper number carregado no basecontroller
          */
         return number_to_currency($this->value,'BRL','pt-BR',2).' /'. $this->recorrence;
     }

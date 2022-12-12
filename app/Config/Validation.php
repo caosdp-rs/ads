@@ -54,4 +54,16 @@ class Validation extends BaseConfig
             'is_unique' => 'Categories.name.is_unique',
         ]
     ];
+    // Plab 
+    public $plan = [
+        'name' => 'required|min_length[3]|max_length[90]|is_unique[plans.name,id,{id}]',
+        'recorrence' => 'required|in_list[monthly,quarterly,semester,yearly]',
+        'value' => 'required',
+        'description'=>'required'
+    ];
+    public $plan_errors = [
+        'recorrence' => [
+            'in_List' => 'Plans.recorrence.in_list',  // lang() nõa pode ser usado aqui
+        ]
+    ];
 }
