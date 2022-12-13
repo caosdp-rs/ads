@@ -73,7 +73,7 @@ class CategoriesController extends BaseController
 
         $category = new Category($this->removeSpoofingFromRequest());
         $this->categoryService->trySaveCategory($category);
-        return $this->response->setJSON($this->categoryRequest->responseWithMessage(message: lang('App.success_saved')));
+        return $this->response->setJSON($this->categoryRequest->respondWithMessage(message: lang('App.success_saved')));
         
     }
 
@@ -86,7 +86,7 @@ class CategoriesController extends BaseController
         $category = $this->categoryService->getCategory($this->request->getGetPost('id'));
         $category->fill($this->removeSpoofingFromRequest());
         $this->categoryService->trySaveCategory($category);
-        return $this->response->setJSON($this->categoryRequest->responseWithMessage(message: lang('App.success_saved')));
+        return $this->response->setJSON($this->categoryRequest->respondWithMessage(message: lang('App.success_saved')));
         
     }
 
@@ -95,7 +95,7 @@ class CategoriesController extends BaseController
 
         $this->categoryService->tryArchiveCategory($this->request->getGetPost('id'));
 
-        return $this->response->setJSON($this->categoryRequest->responseWithMessage(message: lang('App.success_archived')));
+        return $this->response->setJSON($this->categoryRequest->respondWithMessage(message: lang('App.success_archived')));
         
     }
 
@@ -121,7 +121,7 @@ class CategoriesController extends BaseController
 
         $this->categoryService->tryRecoverCategory($this->request->getGetPost('id'));
 
-        return $this->response->setJSON($this->categoryRequest->responseWithMessage(message: lang('App.success_recoverd')));
+        return $this->response->setJSON($this->categoryRequest->respondWithMessage(message: lang('App.success_recoverd')));
         
     }
     public function delete()
@@ -129,7 +129,7 @@ class CategoriesController extends BaseController
 
         $this->categoryService->tryDeleteCategory($this->request->getGetPost('id'));
 
-        return $this->response->setJSON($this->categoryRequest->responseWithMessage(message: lang('App.success_deleted')));
+        return $this->response->setJSON($this->categoryRequest->respondWithMessage(message: lang('App.success_deleted')));
         
     }
 

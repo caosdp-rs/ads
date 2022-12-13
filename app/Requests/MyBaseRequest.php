@@ -52,7 +52,7 @@ class MyBaseRequest
         exit;
     }
 
-    public function responseWithMessage(bool $success = true, string $message = '', int $statusCode=200) : array
+    public function respondWithMessage(bool $success = true, string $message = '', int $statusCode=200) : array
     {
         $response = [
             'code' => $statusCode,

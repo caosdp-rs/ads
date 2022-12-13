@@ -1,9 +1,11 @@
 <script>
 
 $(document).on('click','#createCategoryBtn',function(){
-    $('input[name="_method"]').remove();
+    
     $('.modal-title').text('Criar categoria');  
     $('#categoryModal').modal('show');
+    $('input[name="id"]').val(''); //Limpamos o id 
+    $('input[name="_method"]').remove(); //removemos o spoofing
     $('#categories-form')[0].reset();
 
     $('#categories-form').attr('action','<?php echo route_to('categories.create');?>');

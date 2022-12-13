@@ -4,6 +4,7 @@ namespace App\Controllers\Manager;
 
 use App\Controllers\BaseController;
 use App\Requests\PlanRequest;
+use App\Entities\Plan;
 use App\Services\PlanService;
 use CodeIgniter\Config\Factories;
 
@@ -36,5 +37,30 @@ class PlansController extends BaseController
     }
     public function create(){
         $this->planRequest->validateBeforeSave('plan');
+        $plan = new Plan($this->removeSpoofingFromRequest());
+        $this->planService->trySavePlan($plan);
+        return $this->response->setJSON($this->planRequest->respondWithMessage(message: lang('App.success_saved')));
+    }
+    public function getPlanInfo(){
+        if (!$this->request->isAjax()) { 
+            return redirect()->back();
+        }
+        $plan = $this->planService->getPlanByID($this->request->getGetPost('id'));
+        // echo '<pre>';
+        // print_r($plan);
+        // exit;
+        $response = [
+            'plan'=>$plan,
+            'recorrences'=>$this->planService->getRecorrences($plan->recorrence),
+        ];
+        return $this->response->setJson($response);
+    }
+    public function update()
+    {
+        $this->planRequest->validateBeforeSave('plan');
+        $plan = $this->planService->getPlanByID($this->request->getGetPost('id'));
+        $plan->fill($this->removeSpoofingFromRequest());
+        $this->planService->trySavePlan($plan);
+        return $this->response->setJSON($this->planRequest->respondWithMessage(message: lang('App.success_saved')));
     }
 }

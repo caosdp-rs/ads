@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+
 use App\Entities\Plan;
 use App\Models\PlanModel;
 use CodeIgniter\Config\Factories;
@@ -27,10 +28,11 @@ class PlanService
             );
             $btnArchive = form_button(
                 [
-                    'data-id'=>$plan->id,
-                    'id'=>'archivePlanBtn', // ID do html element
-                    'class'=>'btn btn-info btn-sm'
-                ]
+                    'data-id' => $plan->id,
+                    'id' => 'archivePlanBtn', // ID do html element
+                    'class' => 'btn btn-info btn-sm'
+                ],
+                lang('App.btn_archive')
             );
             $data[] = [
                 'code'                  => $plan->plan_id,
@@ -42,9 +44,9 @@ class PlanService
         }
         return $data;
     }
-    public function getRecorrences(string $recorrence = null):string
+    public function getRecorrences(string $recorrence = null): string
     {
-        $options=[];
+        $options = [];
         $selected = [];
         $options = [
             '' => lang('Plans.label_recorrence'),
@@ -55,9 +57,40 @@ class PlanService
         ];
 
         // Estou criando um plano?
-        if (is_null($recorrence)){
-            return form_dropdown('recorrence',$options,$selected,['class'=>'form-control']);
+        if (is_null($recorrence)) {
+            return form_dropdown('recorrence', $options, $selected, ['class' => 'form-control']);
         }
+        
         // Editando um plano
+        $selected[] = match ($recorrence){
+            Plan::OPTION_MONTHLY => Plan::OPTION_MONTHLY,
+            Plan::OPTION_QUARTERLY => Plan::OPTION_QUARTERLY,
+            Plan::OPTION_SEMESTER => Plan::OPTION_SEMESTER,
+            Plan::OPTION_YEARLY => Plan::OPTION_YEARLY,
+            default             => throw new \InvalidArgumentException("Unsupported recorrence{$recorrence}")
+        };
+        return form_dropdown('recorrence', $options, $selected, ['class' => 'form-control']);
+    }
+
+    public function trySavePlan(Plan $plan, bool $protect = true)
+    {
+
+        /**
+         * @todo gerenciar a criação atualização na gerencia net
+         */
+        try {
+            if ($plan->hasChanged()) {
+                $this->planModel->protect($protect)->save($plan);
+            }
+        } catch (\Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function getPlanByID(int $id, bool $withDeleted=false){
+        $plan = $this->planModel->withDeleted($withDeleted)->find($id);
+        if (is_null($plan)){
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Plan not found');
+        }
+        return $plan;
     }
 }
