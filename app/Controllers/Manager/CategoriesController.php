@@ -12,6 +12,7 @@ use CodeIgniter\Config\Factories;
 class CategoriesController extends BaseController
 {
     private $categoryService;
+    private $categoryRequest;
 
     public function __construct()
     {
