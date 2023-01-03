@@ -21,12 +21,23 @@ class PlansController extends BaseController
     {
         return view('Manager/Plans/index');
     }
+    public function archived()
+    {
+        return view('Manager/Plans/archived');
+    }
     public function getAllPlans()
     {
         if (!$this->request->isAjax()) { 
             return redirect()->back();
         }
         return $this->response->setJSON(['data' => $this->planService->getAllPlans()]);
+    }
+    public function getAllArchived()
+    {
+        if (!$this->request->isAjax()) { 
+            return redirect()->back();
+        }
+        return $this->response->setJSON(['data' => $this->planService->getAllArchived()]);
     }
     public function getRecorrences()
     {
@@ -63,4 +74,14 @@ class PlansController extends BaseController
         $this->planService->trySavePlan($plan);
         return $this->response->setJSON($this->planRequest->respondWithMessage(message: lang('App.success_saved')));
     }
+
+    
+    public function archive()
+    {
+        $this->planService->tryArchivePlan($this->request->getGetPost('id'));
+        return $this->response->setJSON($this->planRequest->respondWithMessage(message: lang('App.success_saved')));
+    }
+
+
+
 }

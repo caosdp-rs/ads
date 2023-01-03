@@ -1,8 +1,10 @@
 <script>
-    $(document).on('click', '#archiveCategoryBtn', function() {
+    $(document).on('click', '#archivePlanBtn', function() {
 
         var id = $(this).data('id');
-        var url = '<?php echo route_to('categories.archive'); ?>';
+        var url = '<?php echo route_to('plans.archive'); ?>';
+        // alert(id);
+        // return; // para não continuar o código
         $.post(url, {
             '<?php echo csrf_token(); ?>': $('meta[name="<?php echo csrf_token() ?>"]').attr('content'),
             _method: 'PUT',

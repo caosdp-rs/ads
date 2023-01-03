@@ -16,11 +16,12 @@
         <div class="col-md-12">
             <div class="card shadow-lg">
                 <div class="card-header">
-                    <h5><<?php echo lang('Plans.title_index'); ?></h5>
-                    <button id="createPlanBtn" class="btn btn-success btn-sm float-end"><?php echo lang('App.btn_new'); ?></button>
+
+                <h5><<?php echo lang('Plans.title_index'); ?></h5>
+
                 </div>
                 <div class="card-body">
-                  <a class="btn btn-info btn-sm mt-2 mb-4" href="<?php echo route_to('plans.archived');?>"><?php echo lang('App.btn_all_archived'); ?></a>
+                  <a class="btn btn-info btn-sm mt-2 mb-4" href="<?php echo route_to('plans');?>"><?php echo lang('App.btn_back'); ?></a>
                     <table class="table table-borderless table-striped" id="dataTable">
                         <thead>
                             <tr>
@@ -51,20 +52,16 @@
 <script type="text/javascript" src="<?php echo site_url('manager_assets/mask/jquery.mask.min.js');?>"></script>
 <script type="text/javascript" src="<?php echo site_url('manager_assets/mask/app.js');?>"></script>
 
-<?php echo $this->include('Manager/Plans/Scripts/_datatable_all');?>
-<?php echo $this->include('Manager/Plans/Scripts/_show_modal_to_create');?>
-
-<?php echo $this->include('Manager/Plans/Scripts/_submit_modal_create_update');?>
-<?php echo $this->include('Manager/Plans/Scripts/_get_plan_info');?>                
-<?php echo $this->include('Manager/Plans/Scripts/_archive_plan');?>
-
+<?php echo $this->include('Manager/Plans/Scripts/_datatable_all_archived');?>
+<?php //echo $this->include('Manager/Plans/Scripts/_recover_plan');?>
+<?php //echo $this->include('Manager/Plans/Scripts/_delete_plan');?>
 
 <script>
   function refreshCSRFToken(token){
     $('[name="<?php echo csrf_token()?>"]').val(token);
     $('meta[name="<?php echo csrf_token()?>"]').attr('content',token);
   }
-  $('#categoryModal').on('hidden.bs.modal',function(e){
+  $('#planModal').on('hidden.bs.modal',function(e){
     $('input[name="_method"]').remove();
   });
 </script>

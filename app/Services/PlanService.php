@@ -44,6 +44,37 @@ class PlanService
         }
         return $data;
     }
+    public function getAllArchived(): array
+    {
+        $plans = $this->planModel->onlyDeleted()->findAll();
+        $data = [];
+        foreach ($plans as $plan) {
+            $btnRecover = form_button(
+                [
+                    'data-id' => $plan->id,
+                    'id' => 'updatePlanBtn', // id do html element
+                    'class' => 'btn btn-primary btn-sm'
+                ],
+                lang('App.btn_recover')
+            );
+            $btnDelete = form_button(
+                [
+                    'data-id' => $plan->id,
+                    'id' => 'archivePlanBtn', // ID do html element
+                    'class' => 'btn btn-danger btn-sm'
+                ],
+                lang('App.btn_delete')
+            );
+            $data[] = [
+                'code'                  => $plan->plan_id,
+                'name'                  => $plan->name,
+                'is_highlighted'        => $plan->isHighlighted(), // da classe entity
+                'details'               => $plan->details(), // da classe entity
+                'actions'               => $btnRecover . ' ' . $btnDelete,
+            ];
+        }
+        return $data;
+    }
     public function getRecorrences(string $recorrence = null): string
     {
         $options = [];
@@ -92,5 +123,17 @@ class PlanService
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Plan not found');
         }
         return $plan;
+    }
+    public function tryArchivePlan(int $id){
+        try{
+
+            $plan = $this->getPlanByID($id);
+            $this->planModel->delete($plan->id);
+
+        }catch (\Exception $e){
+
+            die($e->getMessage());
+
+        }
     }
 }
