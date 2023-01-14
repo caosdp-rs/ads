@@ -1,3 +1,9 @@
+#limpando os logs 
+# php spark logs:clear
+
+
+php spark make:seeder PlanSeeder
+
 # Nova área/CRUD
 php spark make:migration create_table_plans
 php spark make:model PlanModel

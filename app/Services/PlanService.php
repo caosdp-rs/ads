@@ -10,9 +10,12 @@ use phpDocumentor\Reflection\PseudoTypes\True_;
 class PlanService
 {
     private $planModel;
+    private $gerencianetService;
+
     public function __construct()
     {
         $this->planModel = Factories::models(PlanModel::class);
+        $this->gerencianetService = Factories::class(GerenciaNetService::class);
     }
     public function getAllPlans(): array
     {
@@ -92,9 +95,9 @@ class PlanService
         if (is_null($recorrence)) {
             return form_dropdown('recorrence', $options, $selected, ['class' => 'form-control']);
         }
-        
+
         // Editando um plano
-        $selected[] = match ($recorrence){
+        $selected[] = match ($recorrence) {
             Plan::OPTION_MONTHLY => Plan::OPTION_MONTHLY,
             Plan::OPTION_QUARTERLY => Plan::OPTION_QUARTERLY,
             Plan::OPTION_SEMESTER => Plan::OPTION_SEMESTER,
@@ -106,10 +109,7 @@ class PlanService
 
     public function trySavePlan(Plan $plan, bool $protect = true)
     {
-
-        /**
-         * @todo gerenciar a criação atualização na gerencia net
-         */
+        $this->createOrUpdatePlanOnGerencianet($plan);
         try {
             if ($plan->hasChanged()) {
                 $this->planModel->protect($protect)->save($plan);
@@ -118,53 +118,67 @@ class PlanService
             die($e->getMessage());
         }
     }
-    public function getPlanByID(int $id, bool $withDeleted=false){
+    public function getPlanByID(int $id, bool $withDeleted = false)
+    {
         $plan = $this->planModel->withDeleted($withDeleted)->find($id);
-        if (is_null($plan)){
+        if (is_null($plan)) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Plan not found');
         }
         return $plan;
     }
-    public function tryArchivePlan(int $id){
-        try{
+    public function tryArchivePlan(int $id)
+    {
+        try {
 
             $plan = $this->getPlanByID($id);
             $this->planModel->delete($plan->id);
-
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
 
             die($e->getMessage());
-
         }
     }
 
-    public function tryRecoverPlan(int $id){
-        try{
+    public function tryRecoverPlan(int $id)
+    {
+        try {
 
-            $plan = $this->getPlanByID($id, withDeleted:true);
+            $plan = $this->getPlanByID($id, withDeleted: true);
             $plan->recover();
             $this->planModel->protect(false)->save($plan);
-
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
 
             die($e->getMessage());
-
         }
     }
 
-    public function tryDeletePlan(int $id){
-        try{
+    public function tryDeletePlan(int $id)
+    {
+        try {
 
-            $plan = $this->getPlanByID($id, withDeleted:true);
-            /**
-             * @todo deletar plano na gerencianet
-             */
-            $this->planModel->delete($plan->id,purge:true); //força a deleção do registro do banco de dados
+            $plan = $this->getPlanByID($id, withDeleted: true);
 
-        }catch (\Exception $e){
+            $this->gerencianetService->deletePlan($plan->plan_id);
+
+            $this->planModel->delete($plan->id, purge: true); //força a deleção do registro do banco de dados
+
+        } catch (\Exception $e) {
 
             die($e->getMessage());
+        }
+    }
 
+    private function createOrUpdatePlanOnGerencianet(Plan $plan)
+    {
+        // Estamos criando um plano?
+        if (empty($plan->id)) {
+            //Sim
+            return $this->gerencianetService->createPlan($plan);
+        } else {
+            //Nao
+            // A gerenciaNet só permite atualizar o nome do plano
+            if ($plan->hasChanged('name')) {
+                return $this->gerencianetService->updatePlan($plan);
+            }
         }
     }
 }
