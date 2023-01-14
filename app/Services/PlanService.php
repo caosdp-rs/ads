@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Entities\Plan;
 use App\Models\PlanModel;
 use CodeIgniter\Config\Factories;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class PlanService
 {
@@ -52,7 +53,7 @@ class PlanService
             $btnRecover = form_button(
                 [
                     'data-id' => $plan->id,
-                    'id' => 'updatePlanBtn', // id do html element
+                    'id' => 'recoverPlanBtn', // id do html element
                     'class' => 'btn btn-primary btn-sm'
                 ],
                 lang('App.btn_recover')
@@ -60,7 +61,7 @@ class PlanService
             $btnDelete = form_button(
                 [
                     'data-id' => $plan->id,
-                    'id' => 'archivePlanBtn', // ID do html element
+                    'id' => 'deletePlanBtn', // ID do html element
                     'class' => 'btn btn-danger btn-sm'
                 ],
                 lang('App.btn_delete')
@@ -129,6 +130,36 @@ class PlanService
 
             $plan = $this->getPlanByID($id);
             $this->planModel->delete($plan->id);
+
+        }catch (\Exception $e){
+
+            die($e->getMessage());
+
+        }
+    }
+
+    public function tryRecoverPlan(int $id){
+        try{
+
+            $plan = $this->getPlanByID($id, withDeleted:true);
+            $plan->recover();
+            $this->planModel->protect(false)->save($plan);
+
+        }catch (\Exception $e){
+
+            die($e->getMessage());
+
+        }
+    }
+
+    public function tryDeletePlan(int $id){
+        try{
+
+            $plan = $this->getPlanByID($id, withDeleted:true);
+            /**
+             * @todo deletar plano na gerencianet
+             */
+            $this->planModel->delete($plan->id,purge:true); //força a deleção do registro do banco de dados
 
         }catch (\Exception $e){
 

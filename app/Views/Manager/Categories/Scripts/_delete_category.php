@@ -11,8 +11,8 @@
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: '<?php echo lang('App.btn_confirmed_delete');?>'
-            cancelButtonText: '<?php echo lang('App.btn_cancel');?>'
+            confirmButtonText: '<?php echo lang('App.btn_confirmed_delete');?>',
+            cancelButtonText: '<?php echo lang('App.btn_cancel');?>',
         }).then((result) => {
             if (result.isConfirmed) {
                 $.post(url, {
