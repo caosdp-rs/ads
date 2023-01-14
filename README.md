@@ -1,4 +1,19 @@
-#limpando os logs 
+# Autenticação de usuários
+
+composer require agungsugiarto/codeigniter4-authentication
+php spark auth:publish
+php spark migrate
+php spark key:generate
+
+Registering auth routes
+Open your config routes located at app/Config/Routes add this line:
+
+\Fluent\Auth\Facades\Auth::routes();
+
+Fazer os passos 6 6. Registering filter, 7 Registering Event dispatcher da documentação https://github.com/agungsugiarto/codeigniter4-authentication/blob/2.x/docs/en/authentication.md
+
+
+# limpando os logs 
 # php spark logs:clear
 
 

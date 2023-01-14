@@ -8,12 +8,14 @@ class Home extends BaseController
     {
         return view('welcome_message');
     }
-    public function relogio()
+
+    public function dashboard()
     {
-        return view('relogio');
+        return view('dashboard');
     }
-    public function cronometro()
+
+    public function confirm()
     {
-        return view('cronometro');
+        return 'granted password';
     }
 }

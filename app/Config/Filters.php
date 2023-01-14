@@ -23,6 +23,16 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'auth'       => \Fluent\Auth\Filters\AuthenticationFilter::class,
+        'auth.basic' => \Fluent\Auth\Filters\AuthenticationBasicFilter::class,
+        'can'        => \Fluent\Auth\Filters\AuthorizeFilter::class,
+        'confirm'    => [
+            \Fluent\Auth\Filters\AuthenticationFilter::class,
+            \Fluent\Auth\Filters\ConfirmPasswordFilter::class,
+        ],
+        'guest'    => \Fluent\Auth\Filters\RedirectAuthenticatedFilter::class,
+        'throttle' => \Fluent\Auth\Filters\ThrottleFilter::class,
+        'verified' => \Fluent\Auth\Filters\EmailVerifiedFilter::class,
     ];
 
     /**
@@ -34,11 +44,11 @@ class Filters extends BaseConfig
     public $globals = [
         'before' => [
             // 'honeypot',
-            'csrf' => ['except'=>['api/*']],
+            'csrf' => ['except' => ['api/*']],
             // 'invalidchars',
         ],
         'after' => [
-            'toolbar' => ['except'=>['api/*']],
+            'toolbar' => ['except' => ['api/*']],
             // 'honeypot',
             // 'secureheaders',
         ],

@@ -48,6 +48,10 @@ if (file_exists($manager = ROOTPATH . 'routes/manager.php')) {
 if (file_exists($api = ROOTPATH . 'routes/api.php')) {
     require $api;
 }
+
+// Rotas do auth package
+\Fluent\Auth\Facades\Auth::routes();
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
