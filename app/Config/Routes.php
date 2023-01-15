@@ -44,6 +44,11 @@ if (file_exists($manager = ROOTPATH . 'routes/manager.php')) {
     require $manager;
 }
 
+// Rotas para a Dashboard
+if (file_exists($dashboard = ROOTPATH . 'routes/dashboard.php')) {
+    require $dashboard;
+}
+
 // Rotas para o API Rest
 if (file_exists($api = ROOTPATH . 'routes/api.php')) {
     require $api;
@@ -53,12 +58,6 @@ if (file_exists($api = ROOTPATH . 'routes/api.php')) {
 \Fluent\Auth\Facades\Auth::routes();
 
 
-// Deletar depois
-
-$routes->group('dashboard', ['filter' => 'auth:web'], function ($routes) {
-    $routes->get('/', 'HomeController::dashboard', ['filter' => 'verified']);
-    $routes->get('confirm', 'HomeController::confirm', ['filter' => 'confirm']);
-});
 $routes->get('/send-email', 'SendEmailController::index');
 
 /*

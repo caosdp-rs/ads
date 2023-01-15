@@ -1,3 +1,6 @@
+php spark make:controller Dashboard/DashboardController
+
+
 # Criando o Filtro que permita somente o superadmin acessar o manager
 php spark make:filter SuperadminFilter
 
