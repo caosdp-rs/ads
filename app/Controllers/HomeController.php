@@ -6,7 +6,10 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        return view('Web/Home/index');
+        $data = [
+            'title'=>'Anúncios recentes',
+        ];
+        return view('Web/Home/index',$data);
     }
 
     public function dashboard()
