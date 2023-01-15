@@ -5,7 +5,7 @@
 
 	<!-- ** Basic Page Needs ** -->
 	<meta charset="utf-8">
-	
+
 
 	<!-- ** Mobile Specific Metas ** -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@
 
 	<meta name="<?php echo csrf_token() ?>" content="<?php echo csrf_hash(); ?>" class="csrf" />
 
-	<title><?php echo $this->renderSection('title') ?>-<?php echo ' '.env('APP_NAME'); ?> </title>
+	<title><?php echo $this->renderSection('title') ?>-<?php echo ' ' . env('APP_NAME'); ?> </title>
 
 	<meta name="author" content="Carlos Silva">
 	<meta name="generator" content="">
@@ -49,7 +49,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<nav class="navbar navbar-expand-lg navbar-light navigation">
-						<a class="navbar-brand" href="index.html">
+						<a class="navbar-brand" href="<?php echo route_to('web.home') ?>">
 							<img src="<?php echo site_url('web/'); ?>images/logo.png" alt="">
 						</a>
 						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,30 +58,52 @@
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav ml-auto main-nav ">
 								<li class="nav-item active">
-									<a class="nav-link" href="index.html">Home</a>
+									<a class="nav-link" href="<?php echo route_to('web.home'); ?>">Home</a>
 								</li>
-								<li class="nav-item dropdown dropdown-slide @@dashboard">
-									<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#!">Dashboard<span><i class="fa fa-angle-down"></i></span>
-									</a>
+								<li class="nav-item">
+									<a class="nav-link" href="<?php echo route_to('pricing'); ?>">Nossos Planos</a>
+								</li>
 
-									<!-- Dropdown list -->
-									<ul class="dropdown-menu">
-										<li><a class="dropdown-item @@dashboardPage" href="dashboard.html">Dashboard</a></li>
-										<li><a class="dropdown-item @@dashboardMyAds" href="dashboard-my-ads.html">Dashboard My Ads</a></li>
-										<li><a class="dropdown-item @@dashboardFavouriteAds" href="dashboard-favourite-ads.html">Dashboard Favourite Ads</a></li>
-										<li><a class="dropdown-item @@dashboardArchivedAds" href="dashboard-archived-ads.html">Dashboard Archived Ads</a></li>
-										<li><a class="dropdown-item @@dashboardPendingAds" href="dashboard-pending-ads.html">Dashboard Pending Ads</a></li>
+								<?php if (auth()->check()) : ?>
+									<?php if (!auth()->user()->isSuperAdmin()) : ?>
 
-										<li class="dropdown dropdown-submenu dropright">
-											<a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0501" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Menu</a>
+										<li class="nav-item">
+											<a class="nav-link" href="<?php echo route_to('dashboard'); ?>">Dashboard</a>
+										</li>
+										<li class="nav-item dropdown dropdown-slide @@dashboard">
+											<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#!">Dashboard<span><i class="fa fa-angle-down"></i></span>
+											</a>
 
-											<ul class="dropdown-menu" aria-labelledby="dropdown0501">
-												<li><a class="dropdown-item" href="index.html">Submenu 01</a></li>
-												<li><a class="dropdown-item" href="index.html">Submenu 02</a></li>
+											<!-- Dropdown list -->
+											<ul class="dropdown-menu">
+												<li><a class="dropdown-item @@dashboardPage" href="dashboard.html">Dashboard</a></li>
+												<li><a class="dropdown-item @@dashboardMyAds" href="dashboard-my-ads.html">Dashboard My Ads</a></li>
+												<li><a class="dropdown-item @@dashboardFavouriteAds" href="dashboard-favourite-ads.html">Dashboard Favourite Ads</a></li>
+												<li><a class="dropdown-item @@dashboardArchivedAds" href="dashboard-archived-ads.html">Dashboard Archived Ads</a></li>
+												<li><a class="dropdown-item @@dashboardPendingAds" href="dashboard-pending-ads.html">Dashboard Pending Ads</a></li>
+
+												<li class="dropdown dropdown-submenu dropright">
+													<a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0501" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Menu</a>
+
+													<ul class="dropdown-menu" aria-labelledby="dropdown0501">
+														<li><a class="dropdown-item" href="index.html">Submenu 01</a></li>
+														<li><a class="dropdown-item" href="index.html">Submenu 02</a></li>
+													</ul>
+												</li>
 											</ul>
 										</li>
-									</ul>
-								</li>
+
+									<?php else : ?>
+
+										<li class="nav-item">
+											<a class="nav-link" href="<?php echo route_to('manager') ?>">Manager</a>
+										</li>
+
+									<?php endif; ?>
+
+								<?php endif; ?>
+
+
 								<li class="nav-item dropdown dropdown-slide @@pages">
 									<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										Pages <span><i class="fa fa-angle-down"></i></span>
@@ -121,12 +143,25 @@
 								</li>
 							</ul>
 							<ul class="navbar-nav ml-auto mt-10">
-								<li class="nav-item">
-									<a class="nav-link login-button" href="login.html">Login</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link text-white add-button" href="ad-listing.html"><i class="fa fa-plus-circle"></i> Add Listing</a>
-								</li>
+							<?php if (!auth()->check()) : ?>
+
+								
+
+									<li class="nav-item">
+										<a class="nav-link login-button" href="<?php echo route_to('login'); ?>">Login</a>
+									</li>
+
+									<li class="nav-item">
+										<a class="nav-link login-button" href="<?php echo route_to('register'); ?>">Registre-se</a>
+									</li>
+
+							
+
+							<?php endif; ?>
+
+							<li class="nav-item">
+								<a class="nav-link text-white add-button" href="<?php echo route_to('dashboard'); ?>"><i class="fa fa-plus-circle"></i> Criar Anúncio </a>
+							</li>
 							</ul>
 						</div>
 					</nav>
