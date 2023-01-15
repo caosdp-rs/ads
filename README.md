@@ -1,9 +1,43 @@
+# Enviando emails
+
+utilizamos o mailtrap 
+
+
+Criando exemplo simples de teste rápido 
+	
+php spark make:controller SendEmailController
+
+After creating a controller add this method:
+
+<?php
+ 
+namespace App\Controllers;
+ 
+use App\Controllers\BaseController;
+ 
+class SendEmailController extends BaseController
+{
+    public function index()
+    {
+        $email = \Config\Services::email();
+        $email->setTo('sample-recipient@binaryboxtuts.com');
+        $email->setSubject('Email Test');
+        $email->setMessage('A sample email using mailtrap.');
+        $email->send();
+    }
+}
+Register Route
+Now we will be registering the route for merging the PDF files. Open the file /app/Config/Routes.php and update the routes:
+$routes->get('/send-email', 'SendEmailController::index');
+
+
 # Autenticação de usuários
 
 composer require agungsugiarto/codeigniter4-authentication
 php spark auth:publish
 php spark migrate
 php spark key:generate
+
 
 Registering auth routes
 Open your config routes located at app/Config/Routes add this line:
