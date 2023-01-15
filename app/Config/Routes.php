@@ -17,7 +17,7 @@ if (is_file(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('HomeController');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -35,9 +35,9 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
-$routes->get('/relogio', 'Home::relogio');
-$routes->get('/cronometro', 'Home::cronometro');
+$routes->get('/', 'HomeController::index',['as'=>'web.home']);
+$routes->get('/relogio', 'HomeController::relogio');
+$routes->get('/cronometro', 'HomeController::cronometro');
 
 // Rotas para o manager
 if (file_exists($manager = ROOTPATH . 'routes/manager.php')) {
