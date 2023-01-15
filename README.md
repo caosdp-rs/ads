@@ -13,6 +13,12 @@ Open your config routes located at app/Config/Routes add this line:
 Fazer os passos 6 6. Registering filter, 7 Registering Event dispatcher da documentação https://github.com/agungsugiarto/codeigniter4-authentication/blob/2.x/docs/en/authentication.md
 
 
+#Criando um filter baseado no arquivo do vendor inicie com o comando 
+php spark make:filter AuthFilter
+adicionei a linha
+use \Fluent\Auth\Filters\AuthenticationFilter;
+e colocando o extends AuthenticationFilter 
+
 # limpando os logs 
 # php spark logs:clear
 
