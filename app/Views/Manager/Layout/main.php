@@ -10,9 +10,12 @@
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="<?php echo site_url('manager_assets/assets/favicon.ico')?>" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="<?php echo site_url('manager_assets/css/styles.css')?>" rel="stylesheet" />
-        <link href="<?php echo site_url('manager_assets/toast/toastr.min.css')?>" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+        <link href="<?php echo site_url('manager_assets/css/styles.css')?>" rel="stylesheet" />
+        
+        <link href="<?php echo site_url('manager_assets/toast/toastr.min.css')?>" rel="stylesheet" />
+        
         <?php echo $this->renderSection('styles')?>
         <style>
             /**
@@ -68,7 +71,7 @@
                 
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="<?php echo site_url('web/'); ?>plugins/jquery/jquery.min.js"></script>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

@@ -28,8 +28,8 @@
 	<!-- 
   Essential stylesheets
   =====================================-->
-	<link href="<?php echo site_url('web/'); ?>plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
-	<link href="<?php echo site_url('web/'); ?>plugins/bootstrap/bootstrap-slider.css" rel="stylesheet">
+	<link href="<?php echo site_url('web/'); ?>plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo site_url('web/'); ?>plugins/bootstrap/dist/css/bootstrap-slider.css" rel="stylesheet">
 	<link href="<?php echo site_url('web/'); ?>plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="<?php echo site_url('web/'); ?>plugins/slick/slick.css" rel="stylesheet">
 	<link href="<?php echo site_url('web/'); ?>plugins/slick/slick-theme.css" rel="stylesheet">
@@ -382,20 +382,17 @@
 	<!-- 
 Essential Scripts
 =====================================-->
-	<script src="<?php echo site_url('web/'); ?>plugins/jquery/jquery.min.js"></script>
-	<script src="<?php echo site_url('web/'); ?>plugins/bootstrap/popper.min.js"></script>
-	<script src="<?php echo site_url('web/'); ?>plugins/bootstrap/bootstrap.min.js"></script>
-	<script src="<?php echo site_url('web/'); ?>plugins/bootstrap/bootstrap-slider.js"></script>
-	<script src="<?php echo site_url('web/'); ?>plugins/tether/js/tether.min.js"></script>
-	<script src="<?php echo site_url('web/'); ?>plugins/raty/jquery.raty-fa.js"></script>
-	<script src="<?php echo site_url('web/'); ?>plugins/slick/slick.min.js"></script>
-	<script src="<?php echo site_url('web/'); ?>plugins/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-	<!-- google map -->
-	<!-- <script src="https://maps.googleapis.com/maps/api/js?key=ver_no_original_se_precisar" defer></script>-->
-	<!-- <script src="<?php //echo site_url('web/'); 
-						?>plugins/google-map/map.js" defer></script> -->
+	<script src="<?php echo site_url('web/'); ?>plugins/jquery/dist/jquery.min.js"></script>
 
-	<script src="<?php echo site_url('web/'); ?>js/script.js"></script>
+	<script src="<?php echo site_url('web/');?>plugins/bootstrap/dist/js/popper.min.js"></script>
+    <script src="<?php echo site_url('web/');?>plugins/bootstrap/dist/js/bootstrap.min.js"></script>    
+
+    <script src="<?php echo site_url('web/');?>plugins/slick-carousel/slick/slick.min.js"></script>    
+    
+	<script src="<?php echo site_url('web/');?>plugins/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="<?php echo site_url('web/');?>plugins/smoothscroll/SmoothScroll.min.js"></script>
+    <script src="<?php echo site_url('web/');?>js/scripts.js"></script>
+
 	<script src="<?php echo site_url('manager_assets/toast/toastr.min.js') ?>"></script>
 
 	<?php echo $this->renderSection('scripts') ?>
