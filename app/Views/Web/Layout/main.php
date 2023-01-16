@@ -70,28 +70,6 @@
 										<li class="nav-item">
 											<a class="nav-link" href="<?php echo route_to('dashboard'); ?>">Dashboard</a>
 										</li>
-										<li class="nav-item dropdown dropdown-slide @@dashboard">
-											<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#!">Dashboard<span><i class="fa fa-angle-down"></i></span>
-											</a>
-
-											<!-- Dropdown list -->
-											<ul class="dropdown-menu">
-												<li><a class="dropdown-item @@dashboardPage" href="dashboard.html">Dashboard</a></li>
-												<li><a class="dropdown-item @@dashboardMyAds" href="dashboard-my-ads.html">Dashboard My Ads</a></li>
-												<li><a class="dropdown-item @@dashboardFavouriteAds" href="dashboard-favourite-ads.html">Dashboard Favourite Ads</a></li>
-												<li><a class="dropdown-item @@dashboardArchivedAds" href="dashboard-archived-ads.html">Dashboard Archived Ads</a></li>
-												<li><a class="dropdown-item @@dashboardPendingAds" href="dashboard-pending-ads.html">Dashboard Pending Ads</a></li>
-
-												<li class="dropdown dropdown-submenu dropright">
-													<a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0501" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Menu</a>
-
-													<ul class="dropdown-menu" aria-labelledby="dropdown0501">
-														<li><a class="dropdown-item" href="index.html">Submenu 01</a></li>
-														<li><a class="dropdown-item" href="index.html">Submenu 02</a></li>
-													</ul>
-												</li>
-											</ul>
-										</li>
 
 									<?php else : ?>
 
@@ -143,9 +121,7 @@
 								</li>
 							</ul>
 							<ul class="navbar-nav ml-auto mt-10">
-							<?php if (!auth()->check()) : ?>
-
-								
+								<?php if (!auth()->check()) : ?>
 
 									<li class="nav-item">
 										<a class="nav-link login-button" href="<?php echo route_to('login'); ?>">Login</a>
@@ -155,13 +131,11 @@
 										<a class="nav-link login-button" href="<?php echo route_to('register'); ?>">Registre-se</a>
 									</li>
 
-							
+								<?php endif; ?>
 
-							<?php endif; ?>
-
-							<li class="nav-item">
-								<a class="nav-link text-white add-button" href="<?php echo route_to('dashboard'); ?>"><i class="fa fa-plus-circle"></i> Criar Anúncio </a>
-							</li>
+								<li class="nav-item">
+									<a class="nav-link text-white add-button" href="<?php echo route_to('dashboard'); ?>"><i class="fa fa-plus-circle"></i> Criar Anúncio </a>
+								</li>
 							</ul>
 						</div>
 					</nav>
@@ -384,14 +358,14 @@ Essential Scripts
 =====================================-->
 	<script src="<?php echo site_url('web/'); ?>plugins/jquery/dist/jquery.min.js"></script>
 
-	<script src="<?php echo site_url('web/');?>plugins/bootstrap/dist/js/popper.min.js"></script>
-    <script src="<?php echo site_url('web/');?>plugins/bootstrap/dist/js/bootstrap.min.js"></script>    
+	<script src="<?php echo site_url('web/'); ?>plugins/bootstrap/dist/js/popper.min.js"></script>
+	<script src="<?php echo site_url('web/'); ?>plugins/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <script src="<?php echo site_url('web/');?>plugins/slick-carousel/slick/slick.min.js"></script>    
-    
-	<script src="<?php echo site_url('web/');?>plugins/fancybox/jquery.fancybox.pack.js"></script>
-    <script src="<?php echo site_url('web/');?>plugins/smoothscroll/SmoothScroll.min.js"></script>
-    <script src="<?php echo site_url('web/');?>js/scripts.js"></script>
+	<script src="<?php echo site_url('web/'); ?>plugins/slick-carousel/slick/slick.min.js"></script>
+
+	<script src="<?php echo site_url('web/'); ?>plugins/fancybox/jquery.fancybox.pack.js"></script>
+	<script src="<?php echo site_url('web/'); ?>plugins/smoothscroll/SmoothScroll.min.js"></script>
+	<script src="<?php echo site_url('web/'); ?>js/scripts.js"></script>
 
 	<script src="<?php echo site_url('manager_assets/toast/toastr.min.js') ?>"></script>
 
