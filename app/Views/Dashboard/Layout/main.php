@@ -29,6 +29,9 @@
     <!-- FAVICON -->
     <link href="<?php echo site_url('web/'); ?>images/favicon.png" rel="shortcut icon">
 
+    <link rel="stylesheet" type="text/css" href="<?php echo site_url('web/'); ?>plugins/DataTables/datatables.min.css"/>
+ 
+
     <link href="<?php echo site_url('manager_assets/toast/toastr.min.css') ?>" rel="stylesheet" />
 
     <style>
@@ -285,7 +288,9 @@
     <script src="<?php echo site_url('web/'); ?>js/scripts.js"></script>
 
     <script src="<?php echo site_url('manager_assets/toast/toastr.min.js') ?>"></script>
-
+    
+    <script type="text/javascript" src="<?php echo site_url('web/'); ?>plugins/DataTables/datatables.min.js"></script>
+    
     <?php echo $this->renderSection('scripts') ?>
 </body>
 

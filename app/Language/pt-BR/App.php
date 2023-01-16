@@ -32,5 +32,9 @@ return [
             'categories'=>'Categorias',
             'plans'=>'Planos de Assinaturas',
         ],
+        'dashboard' => [
+            'dashboard'=>'Principal',
+            'my_adverts'=>'Meus Anúncios',
+        ],
     ],
 ];
