@@ -1,4 +1,4 @@
-<?= $this->extend('Web/Layout/dashboard') ?>
+<?= $this->extend('Dashboard/Layout/main') ?>
 
 <?= $this->section('title') ?>
 
