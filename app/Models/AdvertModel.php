@@ -75,6 +75,40 @@ class AdvertModel extends MyBaseModel
         return $data;
     }
 
+    /**
+     * Recupera todos os anúncios de acordo com o usuário logado
+     * 
+     * @param boolean $onlyDeleted
+     * @return array
+     */
+
+    public function getAllAdverts(bool $onlyDeleted = false)
+    {
+        $this->setSQLMode();
+        $builder = $this;
+        if ($onlyDeleted){
+            $builder->onlyDeleted();
+        }
+
+        $tableFields = [
+            'adverts.*',
+            'categories.name As category',
+            'adverts_images.image AS image'
+        ];
+
+        $builder->select($tableFields);
+
+        if(!$this->user->isSuperAdmin()){
+            $builder->where('adverts.user_id',$this->user->id);
+        }
+
+        $builder->join('categories','categories.id=adverts.category_id');
+        $builder->join('adverts_images','adverts_images.advert_id = adverts.id','LEFT');
+        $builder->groupBy('adverts.id');
+        $builder->orderBy('adverts.id');
+        return $builder->findAll();
+    }
+
     
 
 
